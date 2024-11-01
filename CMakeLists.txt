@@ -20,9 +20,10 @@ set(GZ_SIM_VER ${gz-sim8_VERSION_MAJOR})
 # Add the plugin libraries
 add_library(EER_Buoyancy SHARED src/EER_Buoyancy.cc src/EER_Buoyancy.hh)
 add_library(EER_Thruster SHARED src/EER_Thruster.cc src/EER_Thruster.hh)
+add_library(EER_Claws SHARED src/EER_Claws.cc src/EER_Claws.hh)
 
 # Set the C++ standard to C++17 and link the plugin libraries to Gazebo libraries
-foreach(plugin EER_Buoyancy EER_Thruster)
+foreach(plugin EER_Buoyancy EER_Thruster EER_Claws)
   set_property(TARGET ${plugin} PROPERTY CXX_STANDARD 17)
   target_link_libraries(${plugin}
     PRIVATE gz-plugin${GZ_PLUGIN_VER}::gz-plugin${GZ_PLUGIN_VER}

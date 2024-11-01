@@ -15,7 +15,6 @@
  *
  * Modifications Copyright (C) 2024 Eastern Edge Robotics
  * Modifications by Zaid Duraid 
- * Licensed under the MIT License.
  *
  * Description of modifications:
  * Functionality was added to allow the user to preset a custom volume and center of volume for links in the SDF.

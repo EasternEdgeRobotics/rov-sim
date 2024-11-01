@@ -16,7 +16,6 @@
  * 
  * Modifications Copyright (C) 2024 Eastern Edge Robotics
  * Modifications by Zaid Duraid 
- * Licensed under the MIT License.
  *
  * Description of modifications:
  * New plugin operation mode (ESCCmd) was added to allow the user to control the thruster using ESC input values (0-255) instead of force or angular velocity commands.
