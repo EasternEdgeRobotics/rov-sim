@@ -55,11 +55,6 @@ The sim should now be running as a service. To pause/unpause the simulation, run
     gz service -s /world/<WORLD NAME>/control --reqtype gz.msgs.WorldControl --reptype gz.msgs.Boolean --timeout 1000 --req 'pause: <true or false>'
     ```
 
-To stop the background service, run:
-    ```
-    sudo systemctl stop rov_sim
-    ```
-
 ## Features
 This repository includes the following features:
 - Modified buoyancy plugin making it possible to specify the volume and center of volume for models. 
