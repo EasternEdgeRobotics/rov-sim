@@ -31,6 +31,12 @@ To run the simulation, follow these steps:
         ```
         gz sim -v 4 OceanWorld.sdf
         ```
+The sim should now be running. To pause/unpause the simulation in the command line, run:
+    ```
+    gz service -s /world/<WORLD NAME>/control --reqtype gz.msgs.WorldControl --reptype gz.msgs.Boolean --timeout 1000 --req 'pause: <true or false>'
+    ```
+
+You may run `ros2 topic list` to see the list of ROS topics on which the robot communicates (also see [the list of ros topics](./initialize_ros_communication.bash)). 
 
 ### Headless Mode
 If you want to run the simulation in headless mode on a remote machine, follow these steps:
@@ -43,14 +49,6 @@ If you want to run the simulation in headless mode on a remote machine, follow t
         ```
         bash start_simulation_headless.bash
         ```
-
-
-The sim should now be running as a service. To pause/unpause the simulation, run:
-    ```
-    gz service -s /world/<WORLD NAME>/control --reqtype gz.msgs.WorldControl --reptype gz.msgs.Boolean --timeout 1000 --req 'pause: <true or false>'
-    ```
-
-You may run `ros2 topic list` to see the list of ROS topics on which the robot communicates (also see [the list of ros topics](./initialize_ros_communication.bash)). 
 
 ## Features
 This repository includes the following features:
