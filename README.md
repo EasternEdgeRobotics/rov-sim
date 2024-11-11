@@ -39,12 +39,7 @@ If you want to run the simulation in headless mode on a remote machine, follow t
 
 2. Follow steps 1 and 2 of the [Running the Simulation](#running-the-simulation) section.
 
-3. Enter super-user mode. Running the sim in super-user mode overcomes issues pertaining to recieving data on ros-topics:
-        ```
-        su
-        ```
-
-2. Navigate to this repository clone and run the following script (or make it a systemctl process if you like):
+3. Navigate to this repository clone and run the following script:
         ```
         bash start_simulation_headless.bash
         ```
@@ -55,6 +50,8 @@ The sim should now be running as a service. To pause/unpause the simulation, run
     gz service -s /world/<WORLD NAME>/control --reqtype gz.msgs.WorldControl --reptype gz.msgs.Boolean --timeout 1000 --req 'pause: <true or false>'
     ```
 
+You may run `ros2 topic list` to see the list of ROS topics on which the robot communicates (also see [the list of ros topics](./initialize_ros_communication.bash)). 
+
 ## Features
 This repository includes the following features:
 - Modified buoyancy plugin making it possible to specify the volume and center of volume for models. 
@@ -63,6 +60,6 @@ This repository includes the following features:
 - ROV models and associated world files.
 
 ## License
-This project is licensed under the GPL-3.0 License. See the [LICENSE](./LICENSE) file for more details.
+This project is licensed under the Apache 2.0 License. See the [LICENSE](./LICENSE) file for more details.
 
 For a list of open source components included, see [3rd-party-licenses.txt](./third-party-licenses.txt).
