@@ -18,12 +18,19 @@ gz_find_package(gz-sim8 REQUIRED)
 set(GZ_SIM_VER ${gz-sim8_VERSION_MAJOR})
 
 # Add the plugin libraries
-add_library(EER_Buoyancy SHARED src/EER_Buoyancy.cc src/EER_Buoyancy.hh)
-add_library(EER_Thruster SHARED src/EER_Thruster.cc src/EER_Thruster.hh)
-add_library(EER_Claws SHARED src/EER_Claws.cc src/EER_Claws.hh)
+add_library(EER_Buoyancy SHARED src/EER_Buoyancy.cc include/EER_Buoyancy.hh)
+add_library(EER_Thruster SHARED src/EER_Thruster.cc include/EER_Thruster.hh)
+add_library(EER_Claws SHARED src/EER_Claws.cc include/EER_Claws.hh)
+add_library(EER_Hydrodynamics SHARED src/EER_Hydrodynamics.cc include/EER_Hydrodynamics.hh)
+
+# Add include directories for the plugins
+target_include_directories(EER_Buoyancy PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(EER_Thruster PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(EER_Claws PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(EER_Hydrodynamics PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # Set the C++ standard to C++17 and link the plugin libraries to Gazebo libraries
-foreach(plugin EER_Buoyancy EER_Thruster EER_Claws)
+foreach(plugin EER_Buoyancy EER_Thruster EER_Claws EER_Hydrodynamics)
   set_property(TARGET ${plugin} PROPERTY CXX_STANDARD 17)
   target_link_libraries(${plugin}
     PRIVATE gz-plugin${GZ_PLUGIN_VER}::gz-plugin${GZ_PLUGIN_VER}

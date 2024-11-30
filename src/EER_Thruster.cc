@@ -81,8 +81,11 @@ class gz::sim::systems::ThrusterPrivateData
   /// \brief Mutex for read/write access to class
   public: std::mutex mtx;
 
-  /// \brief Thrust output by propeller in N
+  /// \brief Thrust output by propeller in N.
   public: double thrust = 0.0;
+
+  /// \brief Desired thrust output by propeller in N. Used in ESCCmd mode.
+  public: double desiredThrust = 0.0;
 
   /// \brief Desired propeller angular velocity in rad / s
   public: double propellerAngVel = 0.0;
@@ -122,6 +125,10 @@ class gz::sim::systems::ThrusterPrivateData
   /// \brief The PID which controls the propeller. This isn't used if
   /// velocityControl is true.
   public: math::PID propellerController;
+
+  /// \brief The PID which controls thruster ramp-up time to prevent sudden
+  /// changes in thrust. Only used in ESCCmd mode.
+  public: math::PID thrustRampUpController;
 
   /// \brief Velocity Control mode - this disables the propellerController
   /// and writes the angular velocity directly to the joint. default: false
@@ -309,6 +316,43 @@ void Thruster::Configure(
       ThrusterPrivateData::OperationMode::ESCCmd;
   }
 
+  double minThrustCmd = this->dataPtr->cmdMin;
+  double maxThrustCmd = this->dataPtr->cmdMax;
+  if (_sdf->HasElement("max_thrust_cmd"))
+  {
+    if (this->dataPtr->opmode == ThrusterPrivateData::OperationMode::ESCCmd)
+    {
+      gzerr << "The <max_thrust_cmd> parameter is not used in ESCCmd mode. " << std::endl;
+    }
+    else
+    {
+      maxThrustCmd = _sdf->Get<double>("max_thrust_cmd");
+    }
+  }
+  if (_sdf->HasElement("min_thrust_cmd"))
+  {
+    if (this->dataPtr->opmode == ThrusterPrivateData::OperationMode::ESCCmd)
+    {
+      gzerr << "The <min_thrust_cmd> parameter is not used in ESCCmd mode. " << std::endl;
+    }
+    else
+    {
+      minThrustCmd = _sdf->Get<double>("min_thrust_cmd");
+    }
+  }
+  if (maxThrustCmd < minThrustCmd)
+  {
+    gzerr << "<max_thrust_cmd> must be greater than or equal to "
+           << "<min_thrust_cmd>. Revert to using default values: "
+           << "min: " << this->dataPtr->cmdMin << ", "
+           << "max: " << this->dataPtr->cmdMax << std::endl;
+  }
+  else
+  {
+    this->dataPtr->cmdMax = maxThrustCmd;
+    this->dataPtr->cmdMin = minThrustCmd;
+  }
+
   if (this->dataPtr->opmode == ThrusterPrivateData::OperationMode::ESCCmd)
   {
     // Get thruster input voltage, default to 12V otherwise
@@ -416,6 +460,45 @@ void Thruster::Configure(
         }
         file.close();
     }
+
+    // Set the minimum and maximum thrust values
+    this->dataPtr->cmdMax = this->dataPtr->ESCInputToThrust.front();
+    this->dataPtr->cmdMin = this->dataPtr->ESCInputToThrust.back();
+    
+    gzdbg << "Initializing PID controller for thruster ramp-up emulation on joint [" << jointName << "]." << std::endl;
+
+    // Default terms for the PID controller are approximate to avoid the unrealistic case of instantaneous thrust changes
+    double p         = 0.0175;
+    double i         = 0;
+    double d         = 0;
+    double iMax      = 0;
+    double iMin      = 0;
+    double cmdMax    = this->dataPtr->cmdMax;
+    double cmdMin    = this->dataPtr->cmdMin;
+    double cmdOffset =  0;
+
+    if (_sdf->HasElement("thrust_ramp_up_p_gain"))
+    {
+      p = _sdf->Get<double>("thrust_ramp_up_p_gain");
+    }
+    if (_sdf->HasElement("thrust_ramp_up_i_gain"))
+    {
+      i = _sdf->Get<double>("thrust_ramp_up_i_gain");
+    }
+    if (_sdf->HasElement("thrust_ramp_up_d_gain"))
+    {
+      d = _sdf->Get<double>("thrust_ramp_up_d_gain");
+    }
+
+    this->dataPtr->thrustRampUpController.Init(
+      p,
+      i,
+      d,
+      iMax,
+      iMin,
+      cmdMax,
+      cmdMin,
+      cmdOffset);
   }
 
   // Get wake fraction number, default 0.2 otherwise
@@ -616,29 +699,6 @@ void Thruster::Configure(
   enableComponent<components::WorldLinearVelocity>(_ecm,
       this->dataPtr->linkEntity);
 
-  double minThrustCmd = this->dataPtr->cmdMin;
-  double maxThrustCmd = this->dataPtr->cmdMax;
-  if (_sdf->HasElement("max_thrust_cmd"))
-  {
-    maxThrustCmd = _sdf->Get<double>("max_thrust_cmd");
-  }
-  if (_sdf->HasElement("min_thrust_cmd"))
-  {
-    minThrustCmd = _sdf->Get<double>("min_thrust_cmd");
-  }
-  if (maxThrustCmd < minThrustCmd)
-  {
-    gzerr << "<max_thrust_cmd> must be greater than or equal to "
-           << "<min_thrust_cmd>. Revert to using default values: "
-           << "min: " << this->dataPtr->cmdMin << ", "
-           << "max: " << this->dataPtr->cmdMax << std::endl;
-  }
-  else
-  {
-    this->dataPtr->cmdMax = maxThrustCmd;
-    this->dataPtr->cmdMin = minThrustCmd;
-  }
-
   if (_sdf->HasElement("velocity_control"))
   {
     this->dataPtr->velocityControl = _sdf->Get<bool>("velocity_control");
@@ -657,17 +717,17 @@ void Thruster::Configure(
     double cmdMin    = this->dataPtr->ThrustToAngularVec(this->dataPtr->cmdMin);
     double cmdOffset =  0;
 
-    if (_sdf->HasElement("p_gain"))
+    if (_sdf->HasElement("prop_ang_vel_p_gain"))
     {
-      p = _sdf->Get<double>("p_gain");
+      p = _sdf->Get<double>("prop_ang_vel_p_gain");
     }
-    if (!_sdf->HasElement("i_gain"))
+    if (!_sdf->HasElement("prop_ang_vel_i_gain"))
     {
-      i = _sdf->Get<double>("i_gain");
+      i = _sdf->Get<double>("prop_ang_vel_i_gain");
     }
-    if (!_sdf->HasElement("d_gain"))
+    if (!_sdf->HasElement("prop_ang_vel_d_gain"))
     {
-      d = _sdf->Get<double>("d_gain");
+      d = _sdf->Get<double>("prop_ang_vel_d_gain");
     }
 
     this->dataPtr->propellerController.Init(
@@ -775,7 +835,7 @@ void ThrusterPrivateData::OnCmdESC(const gz::msgs::Int32 &_msg)
 {
   std::lock_guard<std::mutex> lock(mtx);
   // Simply obtain the thrust and angular velocity from the ESCInputToThrust and ESCInputToAngVel arrays
-  this->thrust = this->ESCInputToThrust[static_cast<uint8_t>(_msg.data())];
+  this->desiredThrust = this->ESCInputToThrust[static_cast<uint8_t>(_msg.data())];
   this->propellerAngVel = this->ESCInputToAngVel[static_cast<uint8_t>(_msg.data())];
 }
 
@@ -903,13 +963,19 @@ void Thruster::PreUpdate(
   double desiredPropellerAngVel;
   {
     std::lock_guard<std::mutex> lock(this->dataPtr->mtx);
-    desiredThrust = this->dataPtr->thrust;
     if (!this->dataPtr->opmode == ThrusterPrivateData::OperationMode::ESCCmd)
     {
       this->dataPtr->propellerAngVel = this->dataPtr->ThrustToAngularVec(this->dataPtr->thrust);
+      desiredThrust = this->dataPtr->thrust;
     }
-    // The angular velocity is already set in ESCCmd mode
-    desiredPropellerAngVel = this->dataPtr->propellerAngVel;
+    else 
+    {
+      // We use a PID controller to emulate ramp up speed in ESCCmd mode, thus we use a desired thrust value
+      desiredThrust = this->dataPtr->desiredThrust;
+
+      // The angular velocity is already set in ESCCmd mode
+      desiredPropellerAngVel = this->dataPtr->propellerAngVel;
+    }
   }
 
   {
@@ -945,26 +1011,36 @@ void Thruster::PreUpdate(
 
   if (this->dataPtr->opmode == ThrusterPrivateData::OperationMode::ESCCmd)
   {
+    // PID control is used to emulate thruser ramp up speed
+    auto thrustError = this->dataPtr->thrust - desiredThrust;
+    if (abs(thrustError) > 0.1)
+    {
+      this->dataPtr->thrust += this->dataPtr->thrustRampUpController.Update(thrustError, _info.dt);
+    }
+
     msgs::Double force;
-    force.set_data(desiredThrust);
+    force.set_data(this->dataPtr->thrust);
+
     this->dataPtr->pub.Publish(force);
     this->dataPtr->pub2.Publish(angvel);
   }
   else if (this->dataPtr->opmode == ThrusterPrivateData::OperationMode::ForceCmd)
   {
+    this->dataPtr->thrust = desiredThrust;
     this->dataPtr->pub.Publish(angvel);
   }
   else
   {
     msgs::Double force;
     force.set_data(desiredThrust);
+    this->dataPtr->thrust = desiredThrust;
     this->dataPtr->pub.Publish(force);
   }
   // Force: thrust
   // Torque: propeller rotation, if using PID
   link.AddWorldWrench(
     _ecm,
-    unitVector * desiredThrust,
+    unitVector * this->dataPtr->thrust,
     unitVector * torque);
 
   // Update the LinearVelocity of the vehicle

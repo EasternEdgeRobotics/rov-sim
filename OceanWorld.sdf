@@ -120,23 +120,39 @@
             <pose>0 0 0.5 0 0 0</pose>
             
             <plugin
-              filename="gz-sim-hydrodynamics-system"
-              name="gz::sim::systems::Hydrodynamics">
+                filename="plugins/libEER_Hydrodynamics.so"
+                name="gz::sim::systems::EER_Hydrodynamics">
+                <link_name>chassis</link_name>
+                <water_density>1000</water_density>
+                <xDotU>1.26231244</xDotU>
+                <yDotV>1.22524088</yDotV>
+                <zDotW>21</zDotW> <!--Should be 27.12577546 but that makes it crash-->
+                <kDotP>0.08757268</kDotP>
+                <mDotQ>0.05547139</mDotQ>
+                <nDotR>0.07264728</nDotR>
+                <xUabsU>-150</xUabsU>
+                <xU>-30</xU>
+                <yVabsV>-200</yVabsV>
+                <yV>-25</yV>
+                <zWabsW>-425</zWabsW>
+                <zW>-300</zW>
+                <kPabsP>-150</kPabsP>
+                <kP>-100</kP>
+                <mQabsQ>-125</mQabsQ>
+                <mQ>-50</mQ>
+                <nRabsR>-100</nRabsR>
+                <nR>-45</nR>
+            </plugin>
+            <!-- <plugin
+              filename="plugins/libEER_Hydrodynamics.so"
+              name="gz::sim::systems::EER_Hydrodynamics">
               <link_name>chassis</link_name>
-              <!-- Mass values are not recommended to be
-               added in this plugin if inertial properties
-               are already defined. -->
-              <!-- <xDotU>-4.876161</xDotU>
-              <yDotV>-126.324739</yDotV>
-              <zDotW>-126.324739</zDotW>
-              <kDotP>0</kDotP>
-              <mDotQ>-33.46</mDotQ>
-              <nDotR>-33.46</nDotR> -->
-              <!-- TODO (big TODO): Estimate these parameters
-               properly. Currently, they are based on little 
-               trial and error. -->
-               <!-- The hydrodynamics plugin parameters below are based off trial 
-                trial and error to give reasonable behavior -->
+              <xDotU>1.26231244</xDotU>
+              <yDotV>1.22524088</yDotV>
+              <zDotW>27.12577546</zDotW>
+              <kDotP>0.08757268</kDotP>
+              <mDotQ>0.05547139</mDotQ>
+              <nDotR>0.07264728</nDotR>
               <xUabsU>-150</xUabsU>
               <xU>-30</xU>
               <yVabsV>-200</yVabsV>
@@ -149,7 +165,7 @@
               <mQ>-50</mQ>
               <nRabsR>-100</nRabsR>
               <nR>-45</nR>
-            </plugin>
+            </plugin> -->
             
             <plugin
                 filename="plugins/libEER_Claws.so"
