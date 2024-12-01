@@ -49,7 +49,7 @@ namespace systems
   /// - `<max_outward_rotation>` The maximum outward rotation of the claw in radians relative to the starting position (required for each claw).
   ///
   /// - `<topic>` Topic to receive commands in. Defaults to
-  ///     `/model/<model_name>/joint/<joint_name>/cmd_vel`.
+  ///     `/<model_name>/claws/cmd_vel`.
   ///
   /// - `<sub_topic>` Sub topic to receive commands in.
   /// Defaults to "/model/<model_name>/<sub_topic>".
