@@ -3,4 +3,3 @@
 # These use Capytaine, whose license (GPL-3.0) is incompatible with the Apache-2.0 license of this project
 # If you want to figure out the added mass parameters of your ROV, see https://capytaine.github.io/stable/user_manual/cookbook.html#added-mass-of-a-rigid-body 
 added_mass_matrix_analysis_env/*
-added_mass_matrix_solver.py
