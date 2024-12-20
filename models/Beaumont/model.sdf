@@ -636,211 +636,199 @@
       </axis>
     </joint>
     <!-- Front Camera -->
-    <model name="front_camera">
+    <link name="front_camera">
       <pose>0 0 -0.05 0 0.0 -1.5708</pose>
-      <link name="front_camera_body">
-        <pose>0 0 0 0 0 0</pose>
-        <inertial>
-          <mass>0.001</mass>
-          <inertia>
-            <ixx>0.000166667</ixx>
-            <iyy>0.000166667</iyy>
-            <izz>0.000166667</izz>
-          </inertia>
-        </inertial>
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>0.01 0.01 0.01</size>
-            </box>
-          </geometry>
-        </collision>
-        <!-- Uncomment the visual element for debug -->
-        <!-- <visual name="visual">
-          <geometry>
-            <box>
-              <size>0.01 0.01 0.01</size>
-            </box>
-          </geometry>
-        </visual> -->
-        <sensor name="front_camera_sensor" type="camera">
-          <camera>
-            <horizontal_fov>1.047</horizontal_fov>
-            <image>
-              <width>320</width>
-              <height>240</height>
-            </image>
-            <clip>
-              <near>0.1</near>
-              <far>100</far>
-            </clip>
-          </camera>
-          <always_on>1</always_on>
-          <update_rate>30</update_rate>
-          <visualize>true</visualize>
-          <topic>front_camera</topic>
-        </sensor>
-      </link>
-    </model>
+      <inertial>
+        <mass>0.001</mass>
+        <inertia>
+          <ixx>0.000166667</ixx>
+          <iyy>0.000166667</iyy>
+          <izz>0.000166667</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.01 0.01 0.01</size>
+          </box>
+        </geometry>
+      </collision>
+      <!-- Uncomment the visual element for debug -->
+      <!-- <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.01 0.01 0.01</size>
+          </box>
+        </geometry>
+      </visual> -->
+      <sensor name="front_camera_sensor" type="camera">
+        <camera>
+          <horizontal_fov>1.047</horizontal_fov>
+          <image>
+            <width>320</width>
+            <height>240</height>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>100</far>
+          </clip>
+        </camera>
+        <always_on>1</always_on>
+        <update_rate>30</update_rate>
+        <visualize>true</visualize>
+        <topic>front_camera</topic>
+      </sensor>
+    </link>
     <joint name='front_camera_joint' type='fixed'>
       <parent>chassis</parent>
-      <child>front_camera::front_camera_body</child>
+      <child>front_camera</child>
       <pose relative_to="__model__">0 00 -0.05 0 0 0</pose>
     </joint>
     <!-- Tooling Camera -->
-    <model name="tooling_camera">
+    <link name="tooling_camera">
       <pose>0 0.35 0 0 0.0 -1.5708</pose>
-      <link name="tooling_camera_body">
-        <pose>0 0 0 0 0 0</pose>
-        <inertial>
-          <mass>0.001</mass>
-          <inertia>
-            <ixx>0.000166667</ixx>
-            <iyy>0.000166667</iyy>
-            <izz>0.000166667</izz>
-          </inertia>
-        </inertial>
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>0.01 0.01 0.01</size>
-            </box>
-          </geometry>
-        </collision>
-        <!-- Uncomment the visual element for debug -->
-        <!-- <visual name="visual">
-          <geometry>
-            <box>
-              <size>0.01 0.01 0.01</size>
-            </box>
-          </geometry>
-        </visual> -->
-        <sensor name="tooling_camera_sensor" type="camera">
-          <camera>
-            <horizontal_fov>1.047</horizontal_fov>
-            <image>
-              <width>320</width>
-              <height>240</height>
-            </image>
-            <clip>
-              <near>0.1</near>
-              <far>100</far>
-            </clip>
-          </camera>
-          <always_on>1</always_on>
-          <update_rate>30</update_rate>
-          <visualize>true</visualize>
-          <topic>tooling_camera</topic>
-        </sensor>
-      </link>
-    </model>
+      <inertial>
+        <mass>0.001</mass>
+        <inertia>
+          <ixx>0.000166667</ixx>
+          <iyy>0.000166667</iyy>
+          <izz>0.000166667</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.01 0.01 0.01</size>
+          </box>
+        </geometry>
+      </collision>
+      <!-- Uncomment the visual element for debug -->
+      <!-- <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.01 0.01 0.01</size>
+          </box>
+        </geometry>
+      </visual> -->
+      <sensor name="tooling_camera_sensor" type="camera">
+        <camera>
+          <horizontal_fov>1.047</horizontal_fov>
+          <image>
+            <width>320</width>
+            <height>240</height>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>100</far>
+          </clip>
+        </camera>
+        <always_on>1</always_on>
+        <update_rate>30</update_rate>
+        <visualize>true</visualize>
+        <topic>tooling_camera</topic>
+      </sensor>
+    </link>
     <joint name='tooling_camera_joint' type='fixed'>
       <parent>chassis</parent>
-      <child>tooling_camera::tooling_camera_body</child>
+      <child>tooling_camera</child>
       <pose relative_to="__model__">0 0.35 00 0 0 0</pose>
     </joint>    
     <!-- Top Camera -->
-    <model name="top_camera">
+    <link name="top_camera">
       <pose>0 0.175 0.05 0 -1.5708 -1.5708</pose>
-      <link name="top_camera_body">
-        <pose>0 0 0 0 0 0</pose>
-        <inertial>
-          <mass>0.001</mass>
-          <inertia>
-            <ixx>0.000166667</ixx>
-            <iyy>0.000166667</iyy>
-            <izz>0.000166667</izz>
-          </inertia>
-        </inertial>
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>0.01 0.01 0.01</size>
-            </box>
-          </geometry>
-        </collision>
-        <!-- Uncomment the visual element for debug -->
-        <!-- <visual name="visual">
-          <geometry>
-            <box>
-              <size>0.01 0.01 0.01</size>
-            </box>
-          </geometry>
-        </visual> -->
-        <sensor name="top_camera_sensor" type="camera">
-          <camera>
-            <horizontal_fov>1.047</horizontal_fov>
-            <image>
-              <width>320</width>
-              <height>240</height>
-            </image>
-            <clip>
-              <near>0.1</near>
-              <far>100</far>
-            </clip>
-          </camera>
-          <always_on>1</always_on>
-          <update_rate>30</update_rate>
-          <visualize>true</visualize>
-          <topic>top_camera</topic>
-        </sensor>
-      </link>
-    </model>
+      <inertial>
+        <mass>0.001</mass>
+        <inertia>
+          <ixx>0.000166667</ixx>
+          <iyy>0.000166667</iyy>
+          <izz>0.000166667</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.01 0.01 0.01</size>
+          </box>
+        </geometry>
+      </collision>
+      <!-- Uncomment the visual element for debug -->
+      <!-- <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.01 0.01 0.01</size>
+          </box>
+        </geometry>
+      </visual> -->
+      <sensor name="top_camera_sensor" type="camera">
+        <camera>
+          <horizontal_fov>1.047</horizontal_fov>
+          <image>
+            <width>320</width>
+            <height>240</height>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>100</far>
+          </clip>
+        </camera>
+        <always_on>1</always_on>
+        <update_rate>30</update_rate>
+        <visualize>true</visualize>
+        <topic>top_camera</topic>
+      </sensor>
+    </link>
     <joint name='top_camera_joint' type='fixed'>
       <parent>chassis</parent>
-      <child>top_camera::top_camera_body</child>
+      <child>top_camera</child>
       <pose relative_to="__model__">0 0.175 0.05 0 -1.5708 0</pose>
     </joint>    
     <!-- Top Camera -->
-    <model name="bottom_camera">
+    <link name="bottom_camera">      
       <pose>0 0.15 -0.13 0 1.5708 -1.5708</pose>
-      <link name="bottom_camera_body">
-        <pose>0 0 0 0 0 0</pose>
-        <inertial>
-          <mass>0.001</mass>
-          <inertia>
-            <ixx>0.000166667</ixx>
-            <iyy>0.000166667</iyy>
-            <izz>0.000166667</izz>
-          </inertia>
-        </inertial>
-        <collision name="collision">
-          <geometry>
-            <box>
-              <size>0.01 0.01 0.01</size>
-            </box>
-          </geometry>
-        </collision>
-        <!-- Uncomment the visual element for debug -->
-        <!-- <visual name="visual">
-          <geometry>
-            <box>
-              <size>0.01 0.01 0.01</size>
-            </box>
-          </geometry>
-        </visual> -->
-        <sensor name="bottom_camera_sensor" type="camera">
-          <camera>
-            <horizontal_fov>1.047</horizontal_fov>
-            <image>
-              <width>320</width>
-              <height>240</height>
-            </image>
-            <clip>
-              <near>0.1</near>
-              <far>100</far>
-            </clip>
-          </camera>
-          <always_on>1</always_on>
-          <update_rate>30</update_rate>
-          <visualize>true</visualize>
-          <topic>bottom_camera</topic>
-        </sensor>
-      </link>
-    </model>
+      <inertial>
+        <mass>0.001</mass>
+        <inertia>
+          <ixx>0.000166667</ixx>
+          <iyy>0.000166667</iyy>
+          <izz>0.000166667</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.01 0.01 0.01</size>
+          </box>
+        </geometry>
+      </collision>
+      <!-- Uncomment the visual element for debug -->
+      <!-- <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.01 0.01 0.01</size>
+          </box>
+        </geometry>
+      </visual> -->
+      <sensor name="bottom_camera_sensor" type="camera">
+        <camera>
+          <horizontal_fov>1.047</horizontal_fov>
+          <image>
+            <width>320</width>
+            <height>240</height>
+          </image>
+          <clip>
+            <near>0.1</near>
+            <far>100</far>
+          </clip>
+        </camera>
+        <always_on>1</always_on>
+        <update_rate>30</update_rate>
+        <visualize>true</visualize>
+        <topic>bottom_camera</topic>
+      </sensor>
+    </link>
     <joint name='bottom_camera_joint' type='fixed'>
       <parent>chassis</parent>
-      <child>bottom_camera::bottom_camera_body</child>
+      <child>bottom_camera</child>
       <pose relative_to="__model__">0 0.15 -0.13 0 1.5708 0</pose>
     </joint>
     <static>0</static>
