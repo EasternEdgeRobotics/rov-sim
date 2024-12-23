@@ -9,7 +9,7 @@ cpt.set_logging('DEBUG')
 # ----------==== INDICATE STL MOCDEL PATH HERE ====---------
 # ----------------------------------------------------------
 
-beaumont_mesh = cpt.load_mesh("models/Beaumont/chassis_assembly_for_added_mass_matrix_analysis.stl", file_format="stl")
+beaumont_mesh = cpt.load_mesh("models/Beaumont/beaumont_for_added_mass_matrix_analysis.stl", file_format="stl")
 
 # ----------------------------------------------------------
 # ----------------------------------------------------------

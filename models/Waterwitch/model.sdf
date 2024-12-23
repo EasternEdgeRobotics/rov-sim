@@ -1,0 +1,56 @@
+<?xml version='1.0'?>
+<sdf version='1.7'>
+  <model name='Waterwitch'>
+    <link name='rov_body'>
+      <pose>0 0 -0 0 -0 0</pose>
+      <inertial>
+      <!-- Inertial Properties are based on Onshape Model -->
+        <mass>6.907506957916</mass>
+        <pose>0 0 0 0 -0 0</pose>
+        <inertia>
+          <ixx>0.11811426857338</ixx>
+          <ixy>0.000004287037566581</ixy>
+          <ixz>0.00021516428040741</ixz>
+          <iyy>0.1134262861325</iyy>
+          <iyz>0.00013587201593205</iyz>
+          <izz>0.18179128145474</izz>
+        </inertia>
+      </inertial>
+      <self_collide>0</self_collide>
+      <enable_wind>0</enable_wind>
+      <kinematic>0</kinematic>
+      <gravity>1</gravity>
+      <visual name='rov_body_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>waterwitch_visual.stl</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+        <shader type='pixel'/>
+        <ambient>0.2 0.2 0.6 1</ambient>
+        <diffuse>0.2 0.2 0.6 1</diffuse>
+        <specular>0.2 0.2 0.6 1</specular>
+        <emissive>0.2 0.2 0.6 1</emissive>
+        </material>
+        <transparency>0</transparency>
+        <cast_shadows>0</cast_shadows>
+      </visual>
+      <collision name='rov_body_collision'>
+        <max_contacts>10</max_contacts>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>waterwitch_collision.stl</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+    <static>0</static>
+    <self_collide>0</self_collide>
+    <allow_auto_disable>1</allow_auto_disable>
+  </model>
+</sdf>
