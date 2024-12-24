@@ -226,12 +226,12 @@
         <pose>0 0 0 0 0 0</pose>
         <mass>0.002</mass>
         <inertia>
-          <ixx>0.02179</ixx>
-          <ixy>0.000000000008</ixy>
+          <ixx>0.00000001960685677</ixx>
+          <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy>1.1654</iyy>
+          <iyy>0.003</iyy>
           <iyz>0</iyz>
-          <izz>1.1654</izz>
+          <izz>0.003</izz>
         </inertia>
       </inertial>
       <collision name='propeller_collision'>
@@ -278,12 +278,12 @@
         <pose>0 0 0 0 0 0</pose>
         <mass>0.002</mass>
         <inertia>
-          <ixx>0.02179</ixx>
-          <ixy>0.000000000008</ixy>
+          <ixx>0.00000001960685677</ixx>
+          <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy>1.1654</iyy>
+          <iyy>0.003</iyy>
           <iyz>0</iyz>
-          <izz>1.1654</izz>
+          <izz>0.003</izz>
         </inertia>
       </inertial>
       <collision name='propeller_collision'>
@@ -330,12 +330,12 @@
         <pose>0 0 0 0 0 0</pose>
         <mass>0.002</mass>
         <inertia>
-          <ixx>0.02179</ixx>
-          <ixy>0.000000000008</ixy>
+          <ixx>0.00000001960685677</ixx>
+          <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy>1.1654</iyy>
+          <iyy>0.003</iyy>
           <iyz>0</iyz>
-          <izz>1.1654</izz>
+          <izz>0.003</izz>
         </inertia>
       </inertial>
       <collision name='propeller_collision'>
@@ -382,12 +382,12 @@
         <pose>0 0 0 0 0 0</pose>
         <mass>0.002</mass>
         <inertia>
-          <ixx>0.02179</ixx>
-          <ixy>0.000000000008</ixy>
+          <ixx>0.00000001960685677</ixx>
+          <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy>1.1654</iyy>
+          <iyy>0.003</iyy>
           <iyz>0</iyz>
-          <izz>1.1654</izz>
+          <izz>0.003</izz>
         </inertia>
       </inertial>
       <collision name='propeller_collision'>
@@ -434,12 +434,12 @@
         <pose>0 0 0 0 0 0</pose>
         <mass>0.002</mass>
         <inertia>
-          <ixx>0.02179</ixx>
-          <ixy>0.000000000008</ixy>
+          <ixx>0.00000001960685677</ixx>
+          <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy>1.1654</iyy>
+          <iyy>0.003</iyy>
           <iyz>0</iyz>
-          <izz>1.1654</izz>
+          <izz>0.003</izz>
         </inertia>
       </inertial>
       <collision name='propeller_collision'>
@@ -486,12 +486,12 @@
         <pose>0 0 0 0 0 0</pose>
         <mass>0.002</mass>
         <inertia>
-          <ixx>0.02179</ixx>
-          <ixy>0.000000000008</ixy>
+          <ixx>0.00000001960685677</ixx>
+          <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy>1.1654</iyy>
+          <iyy>0.003</iyy>
           <iyz>0</iyz>
-          <izz>1.1654</izz>
+          <izz>0.003</izz>
         </inertia>
       </inertial>
       <collision name='propeller_collision'>
@@ -538,12 +538,12 @@
         <pose>0 0 0 0 0 0</pose>
         <mass>0.002</mass>
         <inertia>
-          <ixx>0.02179</ixx>
-          <ixy>0.000000000008</ixy>
+          <ixx>0.00000001960685677</ixx>
+          <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy>1.1654</iyy>
+          <iyy>0.003</iyy>
           <iyz>0</iyz>
-          <izz>1.1654</izz>
+          <izz>0.003</izz>
         </inertia>
       </inertial>
       <collision name='propeller_collision'>
@@ -590,12 +590,12 @@
         <pose>0 0 0 0 0 0</pose>
         <mass>0.002</mass>
         <inertia>
-          <ixx>0.02179</ixx>
-          <ixy>0.000000000008</ixy>
+          <ixx>0.00000001960685677</ixx>
+          <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy>1.1654</iyy>
+          <iyy>0.003</iyy>
           <iyz>0</iyz>
-          <izz>1.1654</izz>
+          <izz>0.003</izz>
         </inertia>
       </inertial>
       <collision name='propeller_collision'>
@@ -831,6 +831,126 @@
       <child>bottom_camera</child>
       <pose relative_to="__model__">0 0.15 -0.13 0 1.5708 0</pose>
     </joint>
+    <plugin
+        filename="plugins/libEER_Hydrodynamics.so"
+        name="gz::sim::systems::EER_Hydrodynamics">
+        <link_name>rov_body</link_name>
+        <water_density>1000</water_density>
+        <xDotU>1.26231244</xDotU>
+        <yDotV>1.22524088</yDotV>
+        <zDotW>21</zDotW> <!--Should be 27.12577546 but that makes it crash-->
+        <kDotP>0.08757268</kDotP>
+        <mDotQ>0.05547139</mDotQ>
+        <nDotR>0.07264728</nDotR>
+        <xUabsU>-150</xUabsU>
+        <xU>-30</xU>
+        <yVabsV>-200</yVabsV>
+        <yV>-25</yV>
+        <zWabsW>-425</zWabsW>
+        <zW>-300</zW>
+        <kPabsP>-150</kPabsP>
+        <kP>-100</kP>
+        <mQabsQ>-125</mQabsQ>
+        <mQ>-50</mQ>
+        <nRabsR>-100</nRabsR>
+        <nR>-45</nR>
+    </plugin>
+    <plugin
+        filename="plugins/libEER_Claws.so"
+        name="gz::sim::systems::Claws">
+        <right_claw>
+            <joint>right_claw_joint</joint>
+            <max_inward_rotation>0.2094395</max_inward_rotation>
+            <max_outward_rotation>0.523599</max_outward_rotation>
+        </right_claw>
+        <left_claw>
+            <joint>left_claw_joint</joint>
+            <max_inward_rotation>0.209439</max_inward_rotation>
+            <max_outward_rotation>0.523599</max_outward_rotation>
+        </left_claw>
+    </plugin>
+
+    <plugin
+        filename="plugins/libEER_Thruster.so"
+        name="gz::sim::systems::EER_Thruster">
+        <namespace>beaumont</namespace>
+        <joint_name>for_star_top_propeller_joint</joint_name>
+        <use_esc_cmd>true</use_esc_cmd>
+        <fluid_density>1000</fluid_density>
+        <topic>for_star_top</topic>
+        <propeller_diameter>0.076</propeller_diameter>
+    </plugin>
+
+    <plugin
+        filename="plugins/libEER_Thruster.so"
+        name="gz::sim::systems::EER_Thruster">
+        <namespace>beaumont</namespace>
+        <joint_name>for_port_top_propeller_joint</joint_name>
+        <use_esc_cmd>true</use_esc_cmd>
+        <fluid_density>1000</fluid_density>
+        <topic>for_port_top</topic>
+        <propeller_diameter>0.076</propeller_diameter>
+    </plugin>
+    <plugin
+        filename="plugins/libEER_Thruster.so"
+        name="gz::sim::systems::EER_Thruster">
+        <namespace>beaumont</namespace>
+        <joint_name>for_star_bot_propeller_joint</joint_name>
+        <use_esc_cmd>true</use_esc_cmd>
+        <fluid_density>1000</fluid_density>
+        <topic>for_star_bot</topic>
+        <propeller_diameter>0.076</propeller_diameter>
+    </plugin>
+    <plugin
+        filename="plugins/libEER_Thruster.so"
+        name="gz::sim::systems::EER_Thruster">
+        <namespace>beaumont</namespace>
+        <joint_name>for_port_bot_propeller_joint</joint_name>
+        <use_esc_cmd>true</use_esc_cmd>
+        <fluid_density>1000</fluid_density>
+        <topic>for_port_bot</topic>
+        <propeller_diameter>0.076</propeller_diameter>
+    </plugin>
+    <plugin
+        filename="plugins/libEER_Thruster.so"
+        name="gz::sim::systems::EER_Thruster">
+        <namespace>beaumont</namespace>
+        <joint_name>aft_star_top_propeller_joint</joint_name>
+        <use_esc_cmd>true</use_esc_cmd>
+        <fluid_density>1000</fluid_density>
+        <topic>aft_star_top</topic>
+        <propeller_diameter>0.076</propeller_diameter>
+    </plugin>
+    <plugin
+        filename="plugins/libEER_Thruster.so"
+        name="gz::sim::systems::EER_Thruster">
+        <namespace>beaumont</namespace>
+        <joint_name>aft_port_top_propeller_joint</joint_name>
+        <use_esc_cmd>true</use_esc_cmd>
+        <fluid_density>1000</fluid_density>
+        <topic>aft_port_top</topic>
+        <propeller_diameter>0.076</propeller_diameter>
+    </plugin>
+    <plugin
+        filename="plugins/libEER_Thruster.so"
+        name="gz::sim::systems::EER_Thruster">
+        <namespace>beaumont</namespace>
+        <joint_name>aft_star_bot_propeller_joint</joint_name>
+        <use_esc_cmd>true</use_esc_cmd>
+        <fluid_density>1000</fluid_density>
+        <topic>aft_star_bot</topic>
+        <propeller_diameter>0.076</propeller_diameter>
+    </plugin>
+    <plugin
+        filename="plugins/libEER_Thruster.so"
+        name="gz::sim::systems::EER_Thruster">
+        <namespace>beaumont</namespace>
+        <joint_name>aft_port_bot_propeller_joint</joint_name>
+        <use_esc_cmd>true</use_esc_cmd>
+        <fluid_density>1000</fluid_density>
+        <topic>aft_port_bot</topic>
+        <propeller_diameter>0.076</propeller_diameter>
+    </plugin>
     <static>0</static>
     <self_collide>0</self_collide>
     <allow_auto_disable>1</allow_auto_disable>

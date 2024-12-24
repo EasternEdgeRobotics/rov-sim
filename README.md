@@ -29,7 +29,7 @@ To run the simulation, follow these steps:
         ```
 4. Launch the simulation:
         ```
-        gz sim -v 4 OceanWorld.sdf
+        gz sim -v 4 worlds/<world file (ex. BeaumontOceanWorld.sdf)>
         ```
    
 The sim should now be running. To pause/unpause the simulation in the command line, run:

@@ -4,7 +4,9 @@
     <link name='rov_body'>
       <pose>0 0 -0 0 -0 0</pose>
       <inertial>
-      <!-- Inertial Properties are based on Onshape Model -->
+        <!-- Inertial Properties are based on Onshape Model -->
+        <!-- Note that the surge and sway axes are swapped for the model,
+             but that does not affect thruster input calculations. -->
         <mass>6.907506957916</mass>
         <pose>0 0 0 0 -0 0</pose>
         <inertia>
@@ -24,7 +26,7 @@
         <pose>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>waterwitch_visual.stl</uri>
+            <uri>waterwitch_no_enclosure_cover.stl</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -43,12 +45,412 @@
         <pose>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>waterwitch_collision.stl</uri>
+            <uri>waterwitch.stl</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
       </collision>
     </link>
+    <!-- For Star -->
+    <link name="for_star_propeller">
+      <pose>-0.135 -0.1525 -0.016 1.5708 0 0.7854</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.002</mass>
+        <inertia>
+          <ixx>0.00000001960685677</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.003</iyy>
+          <iyz>0</iyz>
+          <izz>0.003</izz>
+        </inertia>
+      </inertial>
+      <collision name='propeller_collision'>
+        <max_contacts>10</max_contacts>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>propeller.stl</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='propeller_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>propeller.stl</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+        <shader type='pixel'/>
+        <ambient>0 0.4 1 1</ambient>
+        <diffuse>0 0.4 1 1</diffuse>
+        <specular>0 0.4 1 1</specular>
+        <emissive>0 0.4 1 1</emissive>
+        </material>
+        <transparency>0</transparency>
+        <cast_shadows>0</cast_shadows>
+      </visual>
+    </link>
+    <joint name='for_star_propeller_joint' type='revolute'>
+      <parent>rov_body</parent>
+      <child>for_star_propeller</child>
+      <pose relative_to="for_star_propeller">0 0 0 0 0 0</pose>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+    <!-- For Port -->
+    <link name="for_port_propeller">
+      <pose>0.135 -0.1525 -0.016 1.5708 0 -0.7854</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.002</mass>
+        <inertia>
+          <ixx>0.00000001960685677</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.003</iyy>
+          <iyz>0</iyz>
+          <izz>0.003</izz>
+        </inertia>
+      </inertial>
+      <collision name='propeller_collision'>
+        <max_contacts>10</max_contacts>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>propeller.stl</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='propeller_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>propeller.stl</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+        <shader type='pixel'/>
+        <ambient>0 0.4 1 1</ambient>
+        <diffuse>0 0.4 1 1</diffuse>
+        <specular>0 0.4 1 1</specular>
+        <emissive>0 0.4 1 1</emissive>
+        </material>
+        <transparency>0</transparency>
+        <cast_shadows>0</cast_shadows>
+      </visual>
+    </link>
+    <joint name='for_port_propeller_joint' type='revolute'>
+      <parent>rov_body</parent>
+      <child>for_port_propeller</child>
+      <pose relative_to="for_port_propeller">0 0 0 0 0 0</pose>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+    <!-- Aft Star -->
+    <link name="aft_star_propeller">
+      <pose>-0.135 0.147 -0.016 -1.5708 0 -0.7854</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.002</mass>
+        <inertia>
+          <ixx>0.00000001960685677</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.003</iyy>
+          <iyz>0</iyz>
+          <izz>0.003</izz>
+        </inertia>
+      </inertial>
+      <collision name='propeller_collision'>
+        <max_contacts>10</max_contacts>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>propeller.stl</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='propeller_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>propeller.stl</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+        <shader type='pixel'/>
+        <ambient>0 0.4 1 1</ambient>
+        <diffuse>0 0.4 1 1</diffuse>
+        <specular>0 0.4 1 1</specular>
+        <emissive>0 0.4 1 1</emissive>
+        </material>
+        <transparency>0</transparency>
+        <cast_shadows>0</cast_shadows>
+      </visual>
+    </link>
+    <joint name='aft_star_propeller_joint' type='revolute'>
+      <parent>rov_body</parent>
+      <child>aft_star_propeller</child>
+      <pose relative_to="aft_star_propeller">0 0 0 0 0 0</pose>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+    <!-- Aft Port -->
+    <link name="aft_port_propeller">
+      <pose>0.135 0.147 -0.016 -1.5708 0 0.7854</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.002</mass>
+        <inertia>
+          <ixx>0.00000001960685677</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.003</iyy>
+          <iyz>0</iyz>
+          <izz>0.003</izz>
+        </inertia>
+      </inertial>
+      <collision name='propeller_collision'>
+        <max_contacts>10</max_contacts>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>propeller.stl</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='propeller_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>propeller.stl</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+        <shader type='pixel'/>
+        <ambient>0 0.4 1 1</ambient>
+        <diffuse>0 0.4 1 1</diffuse>
+        <specular>0 0.4 1 1</specular>
+        <emissive>0 0.4 1 1</emissive>
+        </material>
+        <transparency>0</transparency>
+        <cast_shadows>0</cast_shadows>
+      </visual>
+    </link>
+    <joint name='aft_port_propeller_joint' type='revolute'>
+      <parent>rov_body</parent>
+      <child>aft_port_propeller</child>
+      <pose relative_to="aft_port_propeller">0 0 0 0 0 0</pose>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+    <!-- Star Top -->
+    <link name="star_top_propeller">
+      <pose>-0.185 -0.003125 0.030625 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.002</mass>
+        <inertia>
+          <ixx>0.00000001960685677</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.003</iyy>
+          <iyz>0</iyz>
+          <izz>0.003</izz>
+        </inertia>
+      </inertial>
+      <collision name='propeller_collision'>
+        <max_contacts>10</max_contacts>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>propeller.stl</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='propeller_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>propeller.stl</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+        <shader type='pixel'/>
+        <ambient>0 0.4 1 1</ambient>
+        <diffuse>0 0.4 1 1</diffuse>
+        <specular>0 0.4 1 1</specular>
+        <emissive>0 0.4 1 1</emissive>
+        </material>
+        <transparency>0</transparency>
+        <cast_shadows>0</cast_shadows>
+      </visual>
+    </link>
+    <joint name='star_top_propeller_joint' type='revolute'>
+      <parent>rov_body</parent>
+      <child>star_top_propeller</child>
+      <pose relative_to="star_top_propeller">0 0 0 0 0 0</pose>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+    <!-- Port Top -->
+    <link name="port_top_propeller">
+      <pose>0.185 -0.003125 0.030625 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.002</mass>
+        <inertia>
+          <ixx>0.00000001960685677</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.003</iyy>
+          <iyz>0</iyz>
+          <izz>0.003</izz>
+        </inertia>
+      </inertial>
+      <collision name='propeller_collision'>
+        <max_contacts>10</max_contacts>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>propeller.stl</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='propeller_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>propeller.stl</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+        <material>
+        <shader type='pixel'/>
+        <ambient>0 0.4 1 1</ambient>
+        <diffuse>0 0.4 1 1</diffuse>
+        <specular>0 0.4 1 1</specular>
+        <emissive>0 0.4 1 1</emissive>
+        </material>
+        <transparency>0</transparency>
+        <cast_shadows>0</cast_shadows>
+      </visual>
+    </link>
+    <joint name='port_top_propeller_joint' type='revolute'>
+      <parent>rov_body</parent>
+      <child>port_top_propeller</child>
+      <pose relative_to="port_top_propeller">0 0 0 0 0 0</pose>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+    <!-- Hydrodynamics -->
+        <!-- Note that the surge and sway axes are swapped for the model,
+             but that does not affect thruster input calculations. -->
+    <plugin
+        filename="plugins/libEER_Hydrodynamics.so"
+        name="gz::sim::systems::EER_Hydrodynamics">
+        <link_name>rov_body</link_name>
+        <water_density>1000</water_density>
+        <xDotU>1.32246275</xDotU>
+        <yDotV>1.04396026</yDotV>
+        <zDotW>6.64814797</zDotW> <!--Should be 27.12577546 but that makes it crash-->
+        <kDotP>0.03548512</kDotP>
+        <mDotQ>0.02818614</mDotQ>
+        <nDotR>0.01814365</nDotR>
+        <xUabsU>-150</xUabsU>
+        <xU>-30</xU>
+        <yVabsV>-200</yVabsV>
+        <yV>-25</yV>
+        <zWabsW>-425</zWabsW>
+        <zW>-300</zW>
+        <kPabsP>-150</kPabsP>
+        <kP>-100</kP>
+        <mQabsQ>-125</mQabsQ>
+        <mQ>-50</mQ>
+        <nRabsR>-100</nRabsR>
+        <nR>-45</nR>
+    </plugin>
+    <!-- Thrusters -->
+    <plugin
+        filename="plugins/libEER_Thruster.so"
+        name="gz::sim::systems::EER_Thruster">
+        <namespace>waterwitch</namespace>
+        <joint_name>for_star_propeller_joint</joint_name>
+        <use_esc_cmd>true</use_esc_cmd>
+        <fluid_density>1000</fluid_density>
+        <topic>for_star</topic>
+        <propeller_diameter>0.076</propeller_diameter>
+    </plugin>
+    <plugin
+        filename="plugins/libEER_Thruster.so"
+        name="gz::sim::systems::EER_Thruster">
+        <namespace>waterwitch</namespace>
+        <joint_name>for_port_propeller_joint</joint_name>
+        <use_esc_cmd>true</use_esc_cmd>
+        <fluid_density>1000</fluid_density>
+        <topic>for_port</topic>
+        <propeller_diameter>0.076</propeller_diameter>
+    </plugin>
+    <plugin
+        filename="plugins/libEER_Thruster.so"
+        name="gz::sim::systems::EER_Thruster">
+        <namespace>waterwitch</namespace>
+        <joint_name>aft_star_propeller_joint</joint_name>
+        <use_esc_cmd>true</use_esc_cmd>
+        <fluid_density>1000</fluid_density>
+        <topic>aft_star</topic>
+        <propeller_diameter>0.076</propeller_diameter>
+    </plugin>
+    <plugin
+        filename="plugins/libEER_Thruster.so"
+        name="gz::sim::systems::EER_Thruster">
+        <namespace>waterwitch</namespace>
+        <joint_name>aft_port_propeller_joint</joint_name>
+        <use_esc_cmd>true</use_esc_cmd>
+        <fluid_density>1000</fluid_density>
+        <topic>aft_port</topic>
+        <propeller_diameter>0.076</propeller_diameter>
+    </plugin>
+    <plugin
+        filename="plugins/libEER_Thruster.so"
+        name="gz::sim::systems::EER_Thruster">
+        <namespace>waterwitch</namespace>
+        <joint_name>star_top_propeller_joint</joint_name>
+        <use_esc_cmd>true</use_esc_cmd>
+        <fluid_density>1000</fluid_density>
+        <topic>star_top</topic>
+        <propeller_diameter>0.076</propeller_diameter>
+    </plugin>
+    <plugin
+        filename="plugins/libEER_Thruster.so"
+        name="gz::sim::systems::EER_Thruster">
+        <namespace>waterwitch</namespace>
+        <joint_name>port_top_propeller_joint</joint_name>
+        <use_esc_cmd>true</use_esc_cmd>
+        <fluid_density>1000</fluid_density>
+        <topic>port_top</topic>
+        <propeller_diameter>0.076</propeller_diameter>
+    </plugin>
     <static>0</static>
     <self_collide>0</self_collide>
     <allow_auto_disable>1</allow_auto_disable>
