@@ -48,7 +48,7 @@ To run this simulation headless mode on a remote machine, follow these steps:
 
 3. Navigate to this repository clone and run the following script:
         ```
-        bash start_simulation_headless.bash
+        bash start_simulation_headless.bash <simulation_environment (currently either waterwitch or beaumont)>
         ```
 
 ## Features

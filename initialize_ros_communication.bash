@@ -35,10 +35,10 @@ if [ "$VEHICLE" == "beaumont" ]; then
     ros2 run ros_gz_bridge parameter_bridge /top_camera@sensor_msgs/msg/Image@gz.msgs.Image & disown
     ros2 run ros_gz_bridge parameter_bridge /bottom_camera@sensor_msgs/msg/Image@gz.msgs.Image & disown
 elif [ "$VEHICLE" == "waterwitch" ]; then
-    ros2 run ros_gz_bridge parameter_bridge /beaumont/for_star@std_msgs/msg/Int32@gz.msgs.Int32 & disown
-    ros2 run ros_gz_bridge parameter_bridge /beaumont/for_port@std_msgs/msg/Int32@gz.msgs.Int32 & disown
-    ros2 run ros_gz_bridge parameter_bridge /beaumont/aft_star@std_msgs/msg/Int32@gz.msgs.Int32 & disown
-    ros2 run ros_gz_bridge parameter_bridge /beaumont/aft_port@std_msgs/msg/Int32@gz.msgs.Int32 & disown
-    ros2 run ros_gz_bridge parameter_bridge /beaumont/star_top@std_msgs/msg/Int32@gz.msgs.Int32 & disown
-    ros2 run ros_gz_bridge parameter_bridge /beaumont/port_top@std_msgs/msg/Int32@gz.msgs.Int32 & disown
+    ros2 run ros_gz_bridge parameter_bridge /waterwitch/for_star@std_msgs/msg/Int32@gz.msgs.Int32 & disown
+    ros2 run ros_gz_bridge parameter_bridge /waterwitch/for_port@std_msgs/msg/Int32@gz.msgs.Int32 & disown
+    ros2 run ros_gz_bridge parameter_bridge /waterwitch/aft_star@std_msgs/msg/Int32@gz.msgs.Int32 & disown
+    ros2 run ros_gz_bridge parameter_bridge /waterwitch/aft_port@std_msgs/msg/Int32@gz.msgs.Int32 & disown
+    ros2 run ros_gz_bridge parameter_bridge /waterwitch/star_top@std_msgs/msg/Int32@gz.msgs.Int32 & disown
+    ros2 run ros_gz_bridge parameter_bridge /waterwitch/port_top@std_msgs/msg/Int32@gz.msgs.Int32 & disown
 fi
