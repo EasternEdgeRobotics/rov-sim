@@ -16,7 +16,7 @@ if [ "$VEHICLE" != "beaumont" ] && [ "$VEHICLE" != "waterwitch" ]; then
     exit 1
 fi
 if [ "$VEHICLE" == "beaumont" ]; then
-    (trap 'kill 0' SIGINT; . initialize_ros_communication.bash beaumont & gz sim -s --headless-rendering -r -v 4 Worlds/BeaumontOceanWorld.sdf)
+    (trap 'kill 0' SIGINT; . initialize_ros_communication.bash beaumont & gz sim -s --headless-rendering -r -v 4 worlds/BeaumontOceanWorld.sdf)
 elif [ "$VEHICLE" == "waterwitch" ]; then
-    (trap 'kill 0' SIGINT; . initialize_ros_communication.bash waterwitch & gz sim -s --headless-rendering -r -v 4 Worlds/WaterwitchOceanWorld.sdf)
+    (trap 'kill 0' SIGINT; . initialize_ros_communication.bash waterwitch & gz sim -s --headless-rendering -r -v 4 worlds/WaterwitchOceanWorld.sdf)
 fi

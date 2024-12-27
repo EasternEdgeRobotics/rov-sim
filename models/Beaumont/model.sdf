@@ -838,7 +838,7 @@
         <water_density>1000</water_density>
         <xDotU>1.26231244</xDotU>
         <yDotV>1.22524088</yDotV>
-        <zDotW>21</zDotW> <!--Should be 27.12577546 but that makes it crash-->
+        <zDotW>10</zDotW> <!--Should be 27.12577546 but that makes it crash-->
         <kDotP>0.08757268</kDotP>
         <mDotQ>0.05547139</mDotQ>
         <nDotR>0.07264728</nDotR>
