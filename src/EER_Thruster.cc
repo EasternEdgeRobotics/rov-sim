@@ -142,6 +142,9 @@ class gz::sim::systems::ThrusterPrivateData
   /// propellerController, default: -1000
   public: double cmdMin = -1000;
 
+  /// \brief Time since last input command
+  public: double timeSinceLastInput = 0;
+
   /// \brief Thrust coefficient relating the propeller angular velocity to the
   /// thrust
   public: double thrustCoefficient = 1;
@@ -834,9 +837,13 @@ double ThrusterPrivateData::ThrustToAngularVec(double _thrust)
 void ThrusterPrivateData::OnCmdESC(const gz::msgs::Int32 &_msg)
 {
   std::lock_guard<std::mutex> lock(mtx);
+
   // Simply obtain the thrust and angular velocity from the ESCInputToThrust and ESCInputToAngVel arrays
   this->desiredThrust = this->ESCInputToThrust[static_cast<uint8_t>(_msg.data())];
   this->propellerAngVel = this->ESCInputToAngVel[static_cast<uint8_t>(_msg.data())];
+
+  // Reset the timeSinceLastInput variable since input was just recieved
+  this->timeSinceLastInput = 0;
 }
 
 /////////////////////////////////////////////////
@@ -893,6 +900,7 @@ void Thruster::PreUpdate(
   const gz::sim::UpdateInfo &_info,
   gz::sim::EntityComponentManager &_ecm)
 {
+
   if (_info.paused)
     return;
 
@@ -965,6 +973,13 @@ void Thruster::PreUpdate(
     std::lock_guard<std::mutex> lock(this->dataPtr->mtx);
     if (!this->dataPtr->opmode == ThrusterPrivateData::OperationMode::ESCCmd)
     {
+      // Increment the time since last input
+      this->dataPtr->timeSinceLastInput += _info.dt.count();
+
+      // Timeout and reset thrusters after 10 seconds of no input to emulate microcontroller behavior
+      if (this->dataPtr->timeSinceLastInput > 10000)
+        this->dataPtr->thrust = 0;
+      
       this->dataPtr->propellerAngVel = this->dataPtr->ThrustToAngularVec(this->dataPtr->thrust);
       desiredThrust = this->dataPtr->thrust;
     }
