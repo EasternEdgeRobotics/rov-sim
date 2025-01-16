@@ -363,9 +363,280 @@
         <xyz>0 0 1</xyz>
       </axis>
     </joint>
+    <!-- Front Camera Enclosure -->
+    <link name="front_camera_enclosure">
+      <pose>0 -0.2 -0.025 0 1.5707963 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>1.06</mass>
+      </inertial>
+      <collision name="front_camera_enclosure_collision">
+        <geometry>
+          <cylinder>
+            <radius>0.025</radius>
+            <length>0.150</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="front_camera_enclosure_visual">
+        <geometry>
+          <cylinder>
+            <radius>0.025</radius>
+            <length>0.150</length>
+          </cylinder>
+        </geometry>
+        <material>
+            <ambient>0 0 1 1</ambient>
+            <diffuse>0 0 1 1</diffuse>
+            <specular>0 0 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+        </material>
+        <transparency>0.4</transparency>
+        <cast_shadows>0</cast_shadows>
+      </visual>
+    </link>
+    <joint name="front_camera_enclosure_joint" type="fixed">
+      <parent>rov_body</parent>
+      <child>front_camera_enclosure</child>
+      <pose>0 0 0 0 0 0</pose>
+    </joint>
+    <!-- Front Forward Camera -->
+    <link name="front_camera_forward">
+      <pose relative_to="front_camera_enclosure">0 -0.005 0 0 0 0</pose>
+      <inertial>
+        <mass>0.001</mass>
+      </inertial>
+      <collision name="front_camera_forward_collision">
+      <geometry>
+          <box>
+          <size>0.01 0.01 0.01</size>
+          </box>
+      </geometry>
+      </collision>
+      <visual name="front_camera_forward_visual">
+        <geometry>
+            <box>
+            <size>0.01 0.01 0.01</size>
+            </box>
+        </geometry>
+        <cast_shadows>0</cast_shadows>
+      </visual>
+      <sensor name="front_camera_sensor" type="camera">
+        <pose relative_to="front_camera_forward">0 0 0 1.5708 0 -1.5708</pose>
+        <camera>
+          <horizontal_fov>2.0944</horizontal_fov>
+          <vertical_fov>1.171</vertical_fov>
+          <image>
+            <width>320</width>
+            <height>240</height>
+          </image>
+          <clip>
+            <near>0.001</near>
+            <far>100</far>
+          </clip>
+        </camera>
+        <always_on>1</always_on>
+        <update_rate>30</update_rate>
+        <visualize>true</visualize>
+        <topic>front_camera_forward</topic>
+      </sensor>
+    </link>
+    <joint name="front_camera_forward_joint" type="revolute">
+      <parent>front_camera_enclosure</parent>
+      <child>front_camera_forward</child>
+      <pose relative_to="front_camera_enclosure">0 0 0 0 0 0</pose>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+    <!-- Front Downtilt Camera -->
+    <link name="front_camera_downtilt">
+      <pose relative_to="front_camera_enclosure">0.02 -0.005 0 0 0 -1.16937</pose>
+      <inertial>
+        <mass>0.001</mass>
+      </inertial>
+      <collision name="front_camera_downtilt_collision">
+      <geometry>
+          <box>
+          <size>0.01 0.01 0.01</size>
+          </box>
+      </geometry>
+      </collision>
+      <visual name="front_camera_downtilt_visual">
+        <geometry>
+            <box>
+            <size>0.01 0.01 0.01</size>
+            </box>
+        </geometry>
+        <cast_shadows>0</cast_shadows>
+      </visual>
+      <sensor name="front_camera_sensor" type="camera">
+        <pose relative_to="front_camera_downtilt">0 0 0 1.5708 0 0</pose>
+        <camera>
+          <horizontal_fov>2.0944</horizontal_fov>
+          <vertical_fov>1.171</vertical_fov>
+          <image>
+            <width>320</width>
+            <height>240</height>
+          </image>
+          <clip>
+            <near>0.001</near>
+            <far>100</far>
+          </clip>
+        </camera>
+        <always_on>1</always_on>
+        <update_rate>30</update_rate>
+        <visualize>true</visualize>
+        <topic>front_camera_downtilt</topic>
+      </sensor>
+    </link>
+    <joint name="front_camera_downtilt_joint" type="revolute">
+      <parent>front_camera_enclosure</parent>
+      <child>front_camera_downtilt</child>
+      <pose relative_to="front_camera_enclosure">0 0 0 0 0 0</pose>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+    <!-- Back Camera Enclosure -->
+    <link name="back_camera_enclosure">
+      <pose>0 0.2 -0.025 0 1.5707963 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>1.06</mass>
+      </inertial>
+      <collision name="back_camera_enclosure_collision">
+        <geometry>
+          <cylinder>
+            <radius>0.025</radius>
+            <length>0.150</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name="back_camera_enclosure_visual">
+        <geometry>
+          <cylinder>
+            <radius>0.025</radius>
+            <length>0.150</length>
+          </cylinder>
+        </geometry>
+        <material>
+            <ambient>0 0 1 1</ambient>
+            <diffuse>0 0 1 1</diffuse>
+            <specular>0 0 1 1</specular>
+            <emissive>0 0 0 1</emissive>
+        </material>
+        <transparency>0.4</transparency>
+        <cast_shadows>0</cast_shadows>
+      </visual>
+    </link>
+    <joint name="back_camera_enclosure_joint" type="fixed">
+      <parent>rov_body</parent>
+      <child>back_camera_enclosure</child>
+      <pose>0 0 0 0 0 0</pose>
+    </joint>
+    <!-- Back Forward Camera -->
+    <link name="back_camera_forward">
+      <pose relative_to="back_camera_enclosure">0 0.005 0 0 0 0</pose>
+      <inertial>
+        <mass>0.001</mass>
+      </inertial>
+      <collision name="back_camera_forward_collision">
+      <geometry>
+          <box>
+          <size>0.01 0.01 0.01</size>
+          </box>
+      </geometry>
+      </collision>
+      <visual name="back_camera_forward_visual">
+        <geometry>
+            <box>
+            <size>0.01 0.01 0.01</size>
+            </box>
+        </geometry>
+        <cast_shadows>0</cast_shadows>
+      </visual>
+      <sensor name="back_camera_sensor" type="camera">
+        <pose relative_to="back_camera_forward">0 0 0 -1.5708 0 1.5708</pose>
+        <camera>
+          <horizontal_fov>2.0944</horizontal_fov>
+          <vertical_fov>1.171</vertical_fov>
+          <image>
+            <width>320</width>
+            <height>240</height>
+          </image>
+          <clip>
+            <near>0.001</near>
+            <far>100</far>
+          </clip>
+        </camera>
+        <always_on>1</always_on>
+        <update_rate>30</update_rate>
+        <visualize>true</visualize>
+        <topic>back_camera_forward</topic>
+      </sensor>
+    </link>
+    <joint name="back_camera_forward_joint" type="revolute">
+      <parent>back_camera_enclosure</parent>
+      <child>back_camera_forward</child>
+      <pose relative_to="back_camera_enclosure">0 0 0 0 0 0</pose>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+    <!-- Back Downtilt Camera -->
+    <link name="back_camera_downtilt">
+      <pose relative_to="back_camera_enclosure">0.02 0.005 0 0 0 -1.16937</pose>
+      <inertial>
+        <mass>0.001</mass>
+      </inertial>
+      <collision name="back_camera_downtilt_collision">
+      <geometry>
+          <box>
+          <size>0.01 0.01 0.01</size>
+          </box>
+      </geometry>
+      </collision>
+      <visual name="back_camera_downtilt_visual">
+        <geometry>
+            <box>
+            <size>0.01 0.01 0.01</size>
+            </box>
+        </geometry>
+        <cast_shadows>0</cast_shadows>
+      </visual>
+      <sensor name="back_camera_sensor" type="camera">
+        <pose relative_to="back_camera_downtilt">0 0 0 -1.5708 0 1.5708</pose>
+        <camera>
+          <horizontal_fov>2.0944</horizontal_fov>
+          <vertical_fov>1.171</vertical_fov>
+          <image>
+            <width>320</width>
+            <height>240</height>
+          </image>
+          <clip>
+            <near>0.001</near>
+            <far>100</far>
+          </clip>
+        </camera>
+        <always_on>1</always_on>
+        <update_rate>30</update_rate>
+        <visualize>true</visualize>
+        <topic>back_camera_downtilt</topic>
+      </sensor>
+    </link>
+    <joint name="back_camera_downtilt_joint" type="revolute">
+      <parent>back_camera_enclosure</parent>
+      <child>back_camera_downtilt</child>
+      <pose relative_to="back_camera_enclosure">0 0 0 0 0 0</pose>
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
     <!-- Hydrodynamics -->
-        <!-- Note that the surge and sway axes are swapped for the model,
-             but that does not affect thruster input calculations. -->
+    <!-- Note that the surge and sway axes are swapped for the model,
+          but that does not affect thruster input calculations since thruster
+          control topics are renamed approperiately. -->
     <plugin
         filename="plugins/libEER_Hydrodynamics.so"
         name="gz::sim::systems::EER_Hydrodynamics">
@@ -377,18 +648,18 @@
         <kDotP>0.03548512</kDotP>
         <mDotQ>0.02818614</mDotQ>
         <nDotR>0.01814365</nDotR>
-        <xUabsU>-150</xUabsU>
+        <xUabsU>-40</xUabsU> 
         <xU>-30</xU>
-        <yVabsV>-200</yVabsV>
+        <yVabsV>-40</yVabsV>
         <yV>-25</yV>
-        <zWabsW>-425</zWabsW>
-        <zW>-300</zW>
-        <kPabsP>-150</kPabsP>
-        <kP>-100</kP>
+        <zWabsW>-50</zWabsW>
+        <zW>-50</zW>
+        <kPabsP>-20</kPabsP>
+        <kP>-20</kP>
         <mQabsQ>-125</mQabsQ>
         <mQ>-50</mQ>
-        <nRabsR>-100</nRabsR>
-        <nR>-45</nR>
+        <nRabsR>-20</nRabsR>
+        <nR>-20</nR>
     </plugin>
     <!-- Thrusters -->
     <plugin
@@ -450,6 +721,31 @@
         <fluid_density>1000</fluid_density>
         <topic>port_top</topic>
         <propeller_diameter>0.076</propeller_diameter>
+    </plugin>
+    <!-- Front Servo (actually a plugin for each camera) -->
+    <plugin
+        filename="plugins/libEER_Servo.so"
+        name="gz::sim::systems::Servo">
+          <joint>front_camera_forward_joint</joint>
+          <topic>front_camera_forward_servo</topic>
+    </plugin>
+    <plugin
+        filename="plugins/libEER_Servo.so"
+        name="gz::sim::systems::Servo">
+          <joint>front_camera_downtilt_joint</joint>
+          <topic>front_camera_downtilt_servo</topic>
+    </plugin>
+    <plugin
+        filename="plugins/libEER_Servo.so"
+        name="gz::sim::systems::Servo">
+          <joint>back_camera_forward_joint</joint>
+          <topic>back_camera_forward_servo</topic>
+    </plugin>
+    <plugin
+        filename="plugins/libEER_Servo.so"
+        name="gz::sim::systems::Servo">
+          <joint>back_camera_downtilt_joint</joint>
+          <topic>back_camera_downtilt_servo</topic>
     </plugin>
     <static>0</static>
     <self_collide>0</self_collide>

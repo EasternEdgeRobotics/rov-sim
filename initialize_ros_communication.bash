@@ -41,4 +41,15 @@ elif [ "$VEHICLE" == "waterwitch" ]; then
     ros2 run ros_gz_bridge parameter_bridge /waterwitch/aft_port@std_msgs/msg/Int32@gz.msgs.Int32 & disown
     ros2 run ros_gz_bridge parameter_bridge /waterwitch/star_top@std_msgs/msg/Int32@gz.msgs.Int32 & disown
     ros2 run ros_gz_bridge parameter_bridge /waterwitch/port_top@std_msgs/msg/Int32@gz.msgs.Int32 & disown
+
+    # Initialize a ros2 parameter bridge for each camera
+    ros2 run ros_gz_bridge parameter_bridge /front_camera_forward@sensor_msgs/msg/Image@gz.msgs.Image & disown
+    ros2 run ros_gz_bridge parameter_bridge /front_camera_downtilt@sensor_msgs/msg/Image@gz.msgs.Image & disown
+    ros2 run ros_gz_bridge parameter_bridge /back_camera_forward@sensor_msgs/msg/Image@gz.msgs.Image & disown
+    ros2 run ros_gz_bridge parameter_bridge /back_camera_downtilt@sensor_msgs/msg/Image@gz.msgs.Image & disown
+
+    ros2 run ros_gz_bridge parameter_bridge /front_camera_forward_servo@std_msgs/msg/Float64@gz.msgs.Double & disown
+    ros2 run ros_gz_bridge parameter_bridge /front_camera_downtilt_servo@std_msgs/msg/Float64@gz.msgs.Double & disown
+    ros2 run ros_gz_bridge parameter_bridge /back_camera_forward_servo@std_msgs/msg/Float64@gz.msgs.Double & disown
+    ros2 run ros_gz_bridge parameter_bridge /back_camera_downtilt_servo@std_msgs/msg/Float64@gz.msgs.Double & disown
 fi
