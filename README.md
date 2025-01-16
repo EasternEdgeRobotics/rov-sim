@@ -48,7 +48,7 @@ To run this simulation headless mode on a remote machine, follow these steps:
 
 3. Navigate to this repository clone and run the following script:
         ```
-        bash start_simulation_headless.bash <simulation_environment (currently either waterwitch or beaumont)>
+        bash start_simulation_headless.bash 
         ```
 
 ## Features
@@ -56,6 +56,7 @@ This repository includes the following features:
 - Modified buoyancy plugin making it possible to specify the volume and center of volume for models. 
 - Modified thruster plugin based on the [Blue Robotics T200 Thrusters](https://bluerobotics.com/store/thrusters/t100-t200-thrusters/t200-thruster-r2-rp/). The plugin makes it possible to choose between different thruster voltages.
 - Custom claw plugin to specify left and right claw locations and allowed range of motion.
+- Custom servo motor plugin 
 - ROV models and associated world files.
 
 ## License
