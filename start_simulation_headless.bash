@@ -2,21 +2,34 @@
 
 export GZ_SIM_SYSTEM_PLUGIN_PATH=$(pwd)
 
-# Only the following arguments are accepted: beaumont, waterwitch
-if [ "$#" -ne 1 ]; then
-    echo "Usage: $0 {beaumont|waterwitch}"
-    exit 1
-fi
+while true; do
+    read -p "Which ROV do you want to use? (0 for waterwitch, 1 for beaumont): " choice
+    if [ "$choice" == "0" ]; then
+        VEHICLE="waterwitch"
+        break
+    elif [ "$choice" == "1" ]; then
+        VEHICLE="beaumont"
+        break
+    else
+        echo "Invalid choice. Please enter 0 or 1."
+    fi
+done
 
-VEHICLE=$1
+WORLDS=($(ls worlds))
+while true; do
+    echo "Available worlds:"
+    for i in "${!WORLDS[@]}"; do
+        echo "$i: ${WORLDS[$i]}"
+    done
+    read -p "Select a world by index: " world_choice
+    if [[ "$world_choice" =~ ^[0-9]+$ ]] && [ "$world_choice" -ge 0 ] && [ "$world_choice" -lt "${#WORLDS[@]}" ]; then
+        WORLD="${WORLDS[$world_choice]}"
+        break
+    else
+        echo "Invalid choice. Please enter a valid index."
+    fi
+done
 
-if [ "$VEHICLE" != "beaumont" ] && [ "$VEHICLE" != "waterwitch" ]; then
-    echo "Invalid argument: $VEHICLE"
-    echo "Usage: $0 {beaumont|waterwitch}"
-    exit 1
-fi
-if [ "$VEHICLE" == "beaumont" ]; then
-    (trap 'kill 0' SIGINT; . initialize_ros_communication.bash beaumont & gz sim -s --headless-rendering -r -v 4 worlds/BeaumontOceanWorld.sdf)
-elif [ "$VEHICLE" == "waterwitch" ]; then
-    (trap 'kill 0' SIGINT; . initialize_ros_communication.bash waterwitch & gz sim -s --headless-rendering -r -v 4 worlds/WaterwitchOceanWorld.sdf)
-fi
+echo "Starting simulation with $VEHICLE in $WORLD"
+
+(trap 'kill 0' SIGINT; . initialize_ros_communication.bash $VEHICLE & gz sim -s --headless-rendering -r -v 4 worlds/$WORLD) &
